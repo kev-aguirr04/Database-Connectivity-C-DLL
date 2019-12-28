@@ -15,11 +15,23 @@ namespace ExerciseConsoleApp
 
             DatabaseClass dbClass = new DatabaseClass();
 
-            DataRow dataRow = dbClass.GetDataRow("select * from Person.Person where BusinessEntityID = 1");
+            string errorMessage = dbClass.GetDataTable("select * from Person.Person where BusinessEntityID = 1");
 
-            foreach (object scalarValue in dataRow.ItemArray)
+            if (errorMessage.Length > 0)
             {
-                Console.WriteLine(scalarValue.ToString());
+                Console.WriteLine(errorMessage);
+            }
+            else
+            {
+                for (int counter = 0; counter < dbClass.DataTable.Rows.Count; counter++)
+                {
+                    for (int columnCount = 0; columnCount < dbClass.DataTable.Columns.Count; columnCount++)
+                    {
+                        
+                        Console.Write(dbClass.DataTable.Rows[counter].ItemArray[columnCount].ToString() + " ");
+
+                    }
+                }
             }
 
         }

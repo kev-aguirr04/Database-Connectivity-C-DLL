@@ -19,6 +19,9 @@ namespace DatabaseLibrary
 
         private SqlDataAdapter SqlDataAdapter { set; get; }
 
+        public DataTable DataTable { private set; get; }
+
+        public DataRow DataRow { private set; get; }
 
         public DatabaseClass()
         {
@@ -27,7 +30,7 @@ namespace DatabaseLibrary
 
         }
 
-        public DataTable GetDataTable(string selectStatement)
+        public string GetDataTable(string selectStatement)
         {
 
             if (DatabaseConnection.State == ConnectionState.Closed)
@@ -35,28 +38,33 @@ namespace DatabaseLibrary
                 DatabaseConnection.Open();
             }
 
+            if (selectStatement == null || selectStatement == string.Empty)
+            {
+                return "Invalid sql statement. Please provide a valid sql select statement.";
+            }
+
             this.DatabaseCommand = new SqlCommand(selectStatement, DatabaseConnection);
 
             this.SqlDataAdapter = new SqlDataAdapter(DatabaseCommand);
 
-            DataTable dataTable = new DataTable();
+            DataTable = new DataTable();
 
-            this.SqlDataAdapter.Fill(dataTable);
+            this.SqlDataAdapter.Fill(DataTable);
 
             DatabaseConnection.Close();
 
-            return dataTable;
+            return "";
 
         }
 
-        public DataRow GetDataRow(string selectStatement)
+        public string GetDataRow(string selectStatement)
         {
 
-            DataTable dataTable = GetDataTable(selectStatement);
+            string message = GetDataTable(selectStatement); //if you get a message with a length of greater than zero then there is an error.
 
-            DataRow dataRow = dataTable.Rows[0];
+            DataRow = DataTable.Rows[0];
 
-            return dataRow;
+            return "";
             
         }
 
