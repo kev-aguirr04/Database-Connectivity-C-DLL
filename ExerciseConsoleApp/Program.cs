@@ -23,15 +23,19 @@ namespace ExerciseConsoleApp
             }
             else
             {
-                for (int counter = 0; counter < dbClass.DataTable.Rows.Count; counter++)
+                if (dbClass.DataTable.Rows.Count > 0)
                 {
-                    for (int columnCount = 0; columnCount < dbClass.DataTable.Columns.Count; columnCount++)
+                    for (int counter = 0; counter < dbClass.DataTable.Rows.Count; counter++)
                     {
-                        
-                        Console.Write(dbClass.DataTable.Rows[counter].ItemArray[columnCount].ToString() + " ");
+                        for (int columnCount = 0; columnCount < dbClass.DataTable.Columns.Count; columnCount++)
+                        {
 
+                            Console.Write(dbClass.DataTable.Rows[counter].ItemArray[columnCount].ToString() + " ");
+
+                        }
                     }
                 }
+                
             }
 
         }
