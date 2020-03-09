@@ -68,5 +68,26 @@ namespace DatabaseLibrary
             
         }
 
+        public int InsertRow(string insertStatement)
+        {
+
+            int numberOfRows = 0;
+
+            if (DatabaseConnection.State == ConnectionState.Closed)
+            {
+                DatabaseConnection.Open();
+            }
+
+            using (this.DatabaseCommand = new SqlCommand(insertStatement, DatabaseConnection))
+            {
+
+                numberOfRows = this.DatabaseCommand.ExecuteNonQuery();
+
+            }
+
+            return numberOfRows;
+            
+        }
+
     }
 }
