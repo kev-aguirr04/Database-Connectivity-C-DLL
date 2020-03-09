@@ -23,10 +23,10 @@ namespace DatabaseLibrary
 
         public DataRow DataRow { private set; get; }
 
-        public DatabaseClass()
+        public DatabaseClass(string databaseName)
         {
 
-            this.DatabaseConnection = new SqlConnection("Data Source=Lenovo-T440s\\MSSQLSERVER01;Initial Catalog=AdventureWorks2017;Integrated Security=True");
+            this.DatabaseConnection = new SqlConnection(@"Data Source=SURFACEBOOK\DEV_ENVIRONMENT;Initial Catalog=" + databaseName + ";Integrated Security=True");
 
         }
 
